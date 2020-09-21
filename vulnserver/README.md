@@ -34,10 +34,9 @@ Steps to conduct simple buffer overflow
 	Finding the right module
 </a>
 <br />
-<a href="https://github.com/catx0rr/bufferoverflow/tree/master/vulnserver#gaining-reverse-shell>
-	Gaining reverse shell
+<a href="https://github.com/catx0rr/bufferoverflow/tree/master/vulnserver#gaining-access">
+	Gaining Access
 </a>
-
 ---
 
 ## Notes before starting
@@ -426,7 +425,7 @@ On Immunity:
 
 > Since the EIP is controlled, we can execute arbitrary code to take control of the system.
 
-## Gaining Reverse Shell
+## Gaining Access
 
 > Generate the reverse tcp payload shellcode
 
