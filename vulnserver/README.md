@@ -258,7 +258,6 @@ if __name__ == '__main__':
 
 > Upon executing the script.. we should be able to see that EIP is now with 4 bytes of B's 42424242 and we have overwritten the EIP.
 
-
 ![eip_overwritten](https://github.com/catx0rr/bof/blob/master/img/eip_overwritten.png)
 
 > Now that EIP has been taken care of, we can generate a malicious shell code to control what commands can be executed.
@@ -327,12 +326,12 @@ if __name__ == '__main__':
 > Executing the script, it will overflow again the TRUN and overwrite the EIP.
 > Follow the hex dump from the Instruction Pointer (ESP) to investigate for bad chars.
 
-![follow_esp](https://github.com/catx0rr/bof/blob/master/img/follow_esp.png)
 
+![follow_esp](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/follow_esp.png)
 > On the tutorial, vulnserver has no bad characters (or maybe there is)
 > some example of bad characters.
 
-![badchar_sample](https://github.com/catx0rr/bof/blob/master/img/badchar_sample.png)
+![badchar_sample](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/badchar_sample.png)
 
 ## Finding the right module
 
@@ -344,8 +343,7 @@ Paste it in "C:\Program Files (x86)\Immunity Inc\Immunity Debugger\PyCommands"
 
 After attaching immunity to vulnserver, type *!mona modules* in the bottom text box
 
-
-![mona_modules](https://github.com/catx0rr/bof/blob/master/img/mona_modules.png)
+![mona_modules](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/mona_modules.png))
 
 > On the analysis since vulnserver is a vulnerable application, it has no memory protection (*Rebase, SafeSH, ASLR..*)
 > Find the OP code equivalent for jmp esp
@@ -354,13 +352,12 @@ After attaching immunity to vulnserver, type *!mona modules* in the bottom text 
 locate nasm_shell
 ```
 
-![nasm_shell](https://github.com/catx0rr/bof/blob/master/img/nasm_shell.png)
+![nasm_shell](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/nasm_shell.png)
 
 > Getting the op code meaning is to convert assembly language to hex code.
 > this will be used as a jump instruction and point it to the malicious shellcode. Get the **FFE4**
 
-
-![return_addresses](https://github.com/catx0rr/bof/blob/master/img/return_addresses.png)
+![return_addresses](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/return_addresses.png)
 
 > by entering the command on immunity: *!mona find -s "\xff\xe4" -m essfunc.dll*
 > we curated a list of return addresses and list them down to check what will work.
@@ -425,7 +422,7 @@ On Immunity:
 
 > Execute the script
 
-![eip_controlled](https://github.com/catx0rr/bof/blob/master/img/eip_controlled.png)
+![eip_controlled](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/eip_controlled.png)
 
 > Since the EIP is controlled, we can execute arbitrary code to take control of the system.
 
