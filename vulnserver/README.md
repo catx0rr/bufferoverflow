@@ -38,6 +38,8 @@ Steps to conduct simple buffer overflow
 	Gaining reverse shell
 </a>
 
+---
+
 ## Notes before starting
 Easy steps to exploit and gain administrative privileges
 > Turn off windows defender and run immunity and vulnserver as administrator
@@ -60,7 +62,7 @@ Easy steps to exploit and gain administrative privileges
 - attach and select vulnserver
 - immunity is paused when attached. run it by pressing the play on the UI
 
-![immunity_setup](https://github.com/catx0rr/bof/blob/master/img/immunity_setup.png)
+![immunity_setup](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/immunity_setup.png)
 
 > Assuming we have found one of the vulnerable functions on vulnserver
 
@@ -91,11 +93,11 @@ s_string_variable("0");
 generic_send_tcp 172.16.10.101 9999 stats.spk 0 0
 ```
 
-![kali_spike_stats](https://github.com/catx0rr/bof/blob/master/img/kali_spike_stats.png)
+![kali_spike_stats](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/kali_spike_stats.png)
 
 > As this function is not vulnerable, it should exit gracefully.
 
-![windows_spike_stats](https://github.com/catx0rr/bof/blob/master/img/windows_spike_stats.png)
+![windows_spike_stats](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/windows_spike_stats.png)
 
 > Rerunning the spike script to target TRUN (assuming this is the vulnerable function of the program)
 
@@ -104,11 +106,11 @@ generic_send_tcp 172.16.10.101 9999 stats.spk 0 0
 generic_send_tcp 172.16.10.101 9999 trun.spk 0 0
 ```
 
-![kali_spike_trun](https://github.com/catx0rr/bof/blob/master/img/kali_spike_trun.png)
+![kali_spike_trun](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/kali_spike_trun.png)
 
 > Vulnserver should crash due to vulnerability and overwrite memory addresses with \x41 ("A's")
 
-![windows_spike_trun](https://github.com/catx0rr/bof/blob/master/img/windows_spike_trun.png)
+![windows_spike_trun](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/windows_spike_trun.png)
 
 ## Fuzzing
 
@@ -153,8 +155,7 @@ if __name__ == '__main__':
         fuzzer(host, port, buffer)
 ```
 
-
-![vulnserver_crashed](https://github.com/catx0rr/bof/blob/master/img/vulnserver_crashed.png)
+![vulnserver_crashed](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/vulnserver_crashed.png)
 
 > Looking in immunity debugger, it is now overflowed with A's but we still need to find the offset to take control of the EIP (instruction pointer)
 
@@ -166,7 +167,7 @@ if __name__ == '__main__':
 $(locate pattern_create.rb) -l 3000 | tee pattern.rb
 ```
 
-![pattern_rb](https://github.com/catx0rr/bof/blob/master/img/pattern_rb.png)
+![pattern_rb](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/pattern_rb.png)
 
 > Once the pattern has been placed, execute the find_offset.py script.
 
@@ -212,7 +213,7 @@ def find_offset(host, port, offset):
 if __name__ == '__main__':
         find_offset(host, port, read_file(offset_file))
 ```
-![esp_overwritten](https://github.com/catx0rr/bof/blob/master/img/esp_overwritten.png)
+![esp_overwritten](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/esp_overwritten.png)
 
 > Now after executing the script upon analyzing immunity, ESP is now overwritten with pattern.rb characters from the metasploit module. But what is needed to take control is the EIP.
 
@@ -222,7 +223,7 @@ $(locate pattern_offset.rb) -l 3000 -q 386F4337
 
 > The commands will find the offset of a certain pattern offset around 3000 bytes and as we checked on the immunity debugger, EIP is 386F4337 which gives us..
 
-![pattern_offset](https://github.com/catx0rr/bof/blob/master/img/pattern_offset.png)
+![pattern_offset](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/pattern_offset.png)
 
 ## Overwriting the EIP
 
@@ -260,7 +261,7 @@ if __name__ == '__main__':
 
 > Upon executing the script.. we should be able to see that EIP is now with 4 bytes of B's 42424242 and we have overwritten the EIP.
 
-![eip_overwritten](https://github.com/catx0rr/bof/blob/master/img/eip_overwritten.png)
+![eip_overwritten](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/eip_overwritten.png)
 
 > Now that EIP has been taken care of, we can generate a malicious shell code to control what commands can be executed.
 
@@ -507,5 +508,5 @@ nc -lvp 1337
 
 > Once the listener is setup, run vulnserver and execute the script.
 
-![pwned](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/pwned.png)
 
+![pwned](https://github.com/catx0rr/bufferoverflow/blob/master/vulnserver/img/pwned.png)
