@@ -1,0 +1,24 @@
+# Nmap 7.80 scan initiated Sat Oct 10 21:14:12 2020 as: nmap -vv --reason -Pn -sV -p 33899 "--script=banner,(rdp* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" -oN /home/catx0rr/Labs/bufferoverflow/oscpoverflow-prep/overflow1/results/localhost/scans/tcp_33899_rdp_nmap.txt -oX /home/catx0rr/Labs/bufferoverflow/oscpoverflow-prep/overflow1/results/localhost/scans/xml/tcp_33899_rdp_nmap.xml localhost
+Nmap scan report for localhost (127.0.0.1)
+Host is up, received user-set (0.00015s latency).
+Scanned at 2020-10-10 21:14:13 EDT for 101s
+
+PORT      STATE SERVICE       REASON  VERSION
+33899/tcp open  ms-wbt-server syn-ack xrdp
+| rdp-enum-encryption: 
+|   Security layer
+|     CredSSP (NLA): SUCCESS
+|     CredSSP with Early User Auth: SUCCESS
+|     Native RDP: SUCCESS
+|     RDSTLS: SUCCESS
+|     SSL: SUCCESS
+|   RDP Encryption level: High
+|     128-bit RC4: SUCCESS
+|_  RDP Protocol Version:  RDP 5.x, 6.x, 7.x, or 8.x server
+|_rdp-vuln-ms12-020: ERROR: Script execution failed (use -d to debug)
+|_ssl-ccs-injection: No reply from server (TIMEOUT)
+|_sslv2-drown: 
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sat Oct 10 21:15:54 2020 -- 1 IP address (1 host up) scanned in 102.00 seconds

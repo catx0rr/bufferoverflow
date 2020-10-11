@@ -1,0 +1,12 @@
+# Nmap 7.80 scan initiated Sat Oct 10 21:12:40 2020 as: nmap -vv --reason -Pn -sV -sC --version-all -oN /home/catx0rr/Labs/bufferoverflow/oscpoverflow-prep/overflow1/results/localhost/scans/_quick_tcp_nmap.txt -oX /home/catx0rr/Labs/bufferoverflow/oscpoverflow-prep/overflow1/results/localhost/scans/xml/_quick_tcp_nmap.xml localhost
+Nmap scan report for localhost (127.0.0.1)
+Host is up, received user-set (0.00017s latency).
+Scanned at 2020-10-10 21:12:41 EDT for 91s
+Not shown: 999 closed ports
+Reason: 999 conn-refused
+PORT      STATE SERVICE       REASON  VERSION
+33899/tcp open  ms-wbt-server syn-ack xrdp
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sat Oct 10 21:14:12 2020 -- 1 IP address (1 host up) scanned in 92.28 seconds
