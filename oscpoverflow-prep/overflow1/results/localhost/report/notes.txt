@@ -1,8 +1,0 @@
-[*] ms-wbt-server found on tcp/33899.
-
-
-
-[*] ssh found on tcp/2299.
-
-
-
