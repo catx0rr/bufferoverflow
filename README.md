@@ -300,7 +300,7 @@ Before exploiting, remove the nullbyte and generate it on mona so we can compare
 
 Execute the script. After executing, follow the hexdump of stack pointer (ESP).
 
-![follow_hexdump.png]()
+![follow_hexdump.png](https://github.com/catx0rr/bufferoverflow/blob/master/oscpoverflow-prep/overflow5/img/follow_hexdump.png)
 
 There a couple of badcharacters.. a string terminator. If our exploit code falls off on badchars like this, it will be terminated. Goal is to remove the badcharacters. We can easly spot them using mona.
 
