@@ -139,7 +139,7 @@ fuzzing at 1000 bytes..
 KeyboardInterrupt
 ```
 
-![fuzz.png]()
+![fuzz.png](https://github.com/catx0rr/bufferoverflow/blob/master/oscpoverflow-prep/overflow5/img/fuzz.png)
 
 After fuzzing and the application crashed, we can use a pattern on our kali linux.
 
@@ -186,7 +186,7 @@ if __name__ == '__main__':
 
 After executing the script, the application should crash and get the EIP. This will be used to get our offset.
 
-![get_eip.png]()
+![get_eip.png](https://github.com/catx0rr/bufferoverflow/blob/master/oscpoverflow-prep/overflow5/img/get_eip.png)
 
 locate the offset by using mona or mestasploit's pattern_offset.rb.
 
@@ -201,7 +201,7 @@ Mona
 !mona findmsp -distance 1000
 ```
 
-![mona_offset.png]()
+![mona_offset.png](https://github.com/catx0rr/bufferoverflow/blob/master/oscpoverflow-prep/overflow5/img/mona_offset.png)
 
 After getting the offset, pass 4 bytes of "B" character to know that we overwritten the instruction pointer (EIP) with 42424242. Modify the script again as follows.
 
@@ -242,7 +242,7 @@ if __name__ == '__main__':
 
 After executing the script.. 4 bytes of B's.. we control the EIP. 
 
-![eip_overwritten_42.png]()
+![eip_overwritten_42.png](https://github.com/catx0rr/bufferoverflow/blob/master/oscpoverflow-prep/overflow5/img/eip_overwritten_42.png)
 
 Since the EIP is now on our control, we can remove the bad chars to ensure that the shellcode will not be terminated. Any badchars including null byte will terminate our malicous code. Generate badchars, exclude the nullbyte "\x00" and include it on the script.
 
@@ -308,7 +308,7 @@ There a couple of badcharacters.. a string terminator. If our exploit code falls
 !mona compare -f c:\users\admin\desktop\oscp\bytearray.bin -a 0198FA30
 ```
 
-![mona_compare.png]()
+![mona_compare.png](https://github.com/catx0rr/bufferoverflow/blob/master/oscpoverflow-prep/overflow5/img/mona_compare.png)
 
 We got all of the badchars. Remove them now on our shellcode. And compare again.
 You may remove it one by one to ensure that the correct badchars are omitted.
@@ -356,7 +356,7 @@ Before executing the script, prepare a bytearray on mona with the badchars. Comp
 ```
 !mona bytearray -b "\x00\x16\x2f\xf4\xfd"
 ```
-![mona_no_badchars.png]()
+![mona_no_badchars.png](https://github.com/catx0rr/bufferoverflow/blob/master/oscpoverflow-prep/overflow5/img/mona_no_badchars.png)
 
 ```
 !mona compare -f c:\user\admin\desktop\oscp\bytearray.bin -a 019BFA30
@@ -373,7 +373,7 @@ mona jmp -r esp -cpb "\x00\x16\x2f\xf4\xfd"
 
 Click the View -> Log, if it doesnt show. We can see the ESP return addresses. We can use it to leverage and jump to our shellcode. Take note of the memory addresses available.
 
-![jmp_esp.png]()
+![jmp_esp.png](https://github.com/catx0rr/bufferoverflow/blob/master/oscpoverflow-prep/overflow5/img/jmp_esp.png)
 
 Modify the the script again and put the jmp esp. Note that x86 is little endian so address must be put in backwards. (625011af -> \xaf\x11\x50\x62) replace the 4 bytes we put on the EIP, and put the return address, to redirect it to our shellcode.
 
@@ -537,4 +537,4 @@ oscp-bof-prep
 C:\Users\admin\Desktop\vulnerable-apps\oscp>
 ```
 
-![windows_shell.png]()
+![windows_shell.png](https://github.com/catx0rr/bufferoverflow/blob/master/oscpoverflow-prep/overflow5/img/windows_shell.png)
