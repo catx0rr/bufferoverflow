@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Sun Oct 18 19:22:10 2020 as: nmap -sC -sV -T4 -O -oA nmap/brainstorm-all -v -p- -Pn 10.10.2.63 -->
+<nmaprun scanner="nmap" args="nmap -sC -sV -T4 -O -oA nmap/brainstorm-all -v -p- -Pn 10.10.2.63" start="1603020130" startstr="Sun Oct 18 19:22:10 2020" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="65535" services="1-65535"/>
+<verbose level="1"/>
+<debugging level="0"/>
+<taskbegin task="NSE" time="1603020131"/>
+<taskend task="NSE" time="1603020131"/>
+<taskbegin task="NSE" time="1603020131"/>
+<taskend task="NSE" time="1603020131"/>
+<taskbegin task="NSE" time="1603020131"/>
+<taskend task="NSE" time="1603020131"/>
+<taskbegin task="Parallel DNS resolution of 1 host." time="1603020131"/>
+<taskend task="Parallel DNS resolution of 1 host." time="1603020131"/>
+<taskbegin task="SYN Stealth Scan" time="1603020131"/>
+<taskprogress task="SYN Stealth Scan" time="1603020162" percent="6.19" remaining="471" etc="1603020632"/>
+<taskprogress task="SYN Stealth Scan" time="1603020192" percent="16.70" remaining="305" etc="1603020496"/>
+<taskprogress task="SYN Stealth Scan" time="1603020222" percent="26.44" remaining="254" etc="1603020475"/>
+<taskprogress task="SYN Stealth Scan" time="1603020252" percent="36.89" remaining="208" etc="1603020459"/>
+<taskprogress task="SYN Stealth Scan" time="1603020282" percent="46.98" remaining="171" etc="1603020452"/>
+<taskprogress task="SYN Stealth Scan" time="1603020312" percent="56.31" remaining="141" etc="1603020452"/>
+<taskprogress task="SYN Stealth Scan" time="1603020342" percent="66.18" remaining="108" etc="1603020450"/>
+<taskprogress task="SYN Stealth Scan" time="1603020381" percent="73.25" remaining="92" etc="1603020472"/>
+<taskprogress task="SYN Stealth Scan" time="1603020411" percent="81.14" remaining="66" etc="1603020476"/>
+<taskprogress task="SYN Stealth Scan" time="1603020441" percent="89.94" remaining="35" etc="1603020476"/>
+<taskend task="SYN Stealth Scan" time="1603020489" extrainfo="65535 total ports"/>
+<taskbegin task="Service scan" time="1603020490"/>
+<taskend task="Service scan" time="1603020653" extrainfo="3 services on 1 host"/>
+<taskbegin task="NSE" time="1603020659"/>
+<taskend task="NSE" time="1603020691"/>
+<taskbegin task="NSE" time="1603020691"/>
+<taskend task="NSE" time="1603020752"/>
+<taskbegin task="NSE" time="1603020752"/>
+<taskend task="NSE" time="1603020752"/>
+<host starttime="1603020131" endtime="1603020752"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="10.10.2.63" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="65532">
+<extrareasons reason="no-responses" count="65532"/>
+</extraports>
+<port protocol="tcp" portid="21"><state state="open" reason="syn-ack" reason_ttl="127"/><service name="ftp" product="Microsoft ftpd" ostype="Windows" method="probed" conf="10"><cpe>cpe:/a:microsoft:ftp_service</cpe><cpe>cpe:/o:microsoft:windows</cpe></service><script id="ftp-anon" output="Anonymous FTP login allowed (FTP code 230)&#xa;Can&apos;t get directory listing: TIMEOUT"/><script id="ftp-syst" output="&#xa;  SYST: Windows_NT"><elem key="SYST">Windows_NT</elem>
+</script></port>
+<port protocol="tcp" portid="3389"><state state="open" reason="syn-ack" reason_ttl="127"/><service name="ms-wbt-server" tunnel="ssl" method="table" conf="3"/><script id="ssl-date" output="2020-10-18T11:31:35+00:00; 0s from scanner time."><elem key="date">2020-10-18T11:31:35+00:00</elem>
+<elem key="delta">0.0</elem>
+</script></port>
+<port protocol="tcp" portid="9999"><state state="open" reason="syn-ack" reason_ttl="127"/><service name="abyss" servicefp="SF-Port9999-TCP:V=7.80%I=7%D=10/18%Time=5F8C26D0%P=x86_64-pc-linux-gnu%r(NULL,52,&quot;Welcome\x20to\x20Brainstorm\x20chat\x20\(beta\)\nPlease\x20enter\x20your\x20username\x20\(max\x2020\x20characters\):\x20&quot;)%r(GetRequest,63,&quot;Welcome\x20to\x20Brainstorm\x20chat\x20\(beta\)\nPlease\x20enter\x20your\x20username\x20\(max\x2020\x20characters\):\x20Write\x20a\x20message:\x20&quot;)%r(HTTPOptions,63,&quot;Welcome\x20to\x20Brainstorm\x20chat\x20\(beta\)\nPlease\x20enter\x20your\x20username\x20\(max\x2020\x20characters\):\x20Write\x20a\x20message:\x20&quot;)%r(FourOhFourRequest,63,&quot;Welcome\x20to\x20Brainstorm\x20chat\x20\(beta\)\nPlease\x20enter\x20your\x20username\x20\(max\x2020\x20characters\):\x20Write\x20a\x20message:\x20&quot;)%r(JavaRMI,63,&quot;Welcome\x20to\x20Brainstorm\x20chat\x20\(beta\)\nPlease\x20enter\x20your\x20username\x20\(max\x2020\x20characters\):\x20Write\x20a\x20message:\x20&quot;)%r(GenericLines,63,&quot;Welcome\x20to\x20Brainstorm\x20chat\x20\(beta\)\nPlease\x20enter\x20your\x20username\x20\(max\x2020\x20characters\):\x20Write\x20a\x20message:\x20&quot;)%r(RTSPRequest,63,&quot;Welcome\x20to\x20Brainstorm\x20chat\x20\(beta\)\nPlease\x20enter\x20your\x20username\x20\(max\x2020\x20characters\):\x20Write\x20a\x20message:\x20&quot;)%r(RPCCheck,63,&quot;Welcome\x20to\x20Brainstorm\x20chat\x20\(beta\)\nPlease\x20enter\x20your\x20username\x20\(max\x2020\x20characters\):\x20Write\x20a\x20message:\x20&quot;)%r(DNSVersionBindReqTCP,63,&quot;Welcome\x20to\x20Brainstorm\x20chat\x20\(beta\)\nPlease\x20enter\x20your\x20username\x20\(max\x2020\x20characters\):\x20Write\x20a\x20message:\x20&quot;)%r(DNSStatusRequestTCP,63,&quot;Welcome\x20to\x20Brainstorm\x20chat\x20\(beta\)\nPlease\x20enter\x20your\x20username\x20\(max\x2020\x20characters\):\x20Write\x20a\x20message:\x20&quot;)%r(Help,63,&quot;Welcome\x20to\x20Brainstorm\x20chat\x20\(beta\)\nPlease\x20enter\x20your\x20username\x20\(max\x2020\x20characters\):\x20Write\x20a\x20message:\x20&quot;)%r(SSLSessionReq,63,&quot;Welcome\x20to\x20Brainstorm\x20chat\x20\(beta\)\nPlease\x20enter\x20your\x20username\x20\(max\x2020\x20characters\):\x20Write\x20a\x20message:\x20&quot;)%r(TerminalServerCookie,63,&quot;Welcome\x20to\x20Brainstorm\x20chat\x20\(beta\)\nPlease\x20enter\x20your\x20username\x20\(max\x2020\x20characters\):\x20Write\x20a\x20message:\x20&quot;);" method="table" conf="3"/><script id="fingerprint-strings" output="&#xa;  DNSStatusRequestTCP, DNSVersionBindReqTCP, FourOhFourRequest, GenericLines, GetRequest, HTTPOptions, Help, JavaRMI, RPCCheck, RTSPRequest, SSLSessionReq, TerminalServerCookie: &#xa;    Welcome to Brainstorm chat (beta)&#xa;    Please enter your username (max 20 characters): Write a message:&#xa;  NULL: &#xa;    Welcome to Brainstorm chat (beta)&#xa;    Please enter your username (max 20 characters):"><elem key="DNSStatusRequestTCP, DNSVersionBindReqTCP, FourOhFourRequest, GenericLines, GetRequest, HTTPOptions, Help, JavaRMI, RPCCheck, RTSPRequest, SSLSessionReq, TerminalServerCookie">&#xa;    Welcome to Brainstorm chat (beta)&#xa;    Please enter your username (max 20 characters): Write a message:</elem>
+<elem key="NULL">&#xa;    Welcome to Brainstorm chat (beta)&#xa;    Please enter your username (max 20 characters):</elem>
+</script></port>
+</ports>
+<os><portused state="open" proto="tcp" portid="21"/>
+<osmatch name="Microsoft Windows Server 2008" accuracy="90" line="74009">
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="2008" accuracy="90"><cpe>cpe:/o:microsoft:windows_server_2008</cpe></osclass>
+</osmatch>
+<osmatch name="Microsoft Windows Server 2008 R2" accuracy="90" line="74370">
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="2008" accuracy="90"><cpe>cpe:/o:microsoft:windows_server_2008:r2</cpe></osclass>
+</osmatch>
+<osmatch name="Microsoft Windows Server 2008 R2 or Windows 8" accuracy="90" line="74442">
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="2008" accuracy="90"><cpe>cpe:/o:microsoft:windows_server_2008:r2</cpe></osclass>
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="8" accuracy="90"><cpe>cpe:/o:microsoft:windows_8</cpe></osclass>
+</osmatch>
+<osmatch name="Microsoft Windows 7 SP1" accuracy="90" line="76791">
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="7" accuracy="90"><cpe>cpe:/o:microsoft:windows_7::sp1</cpe></osclass>
+</osmatch>
+<osmatch name="Microsoft Windows 8.1 Update 1" accuracy="90" line="77581">
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="8" accuracy="90"><cpe>cpe:/o:microsoft:windows_8</cpe></osclass>
+</osmatch>
+<osmatch name="Microsoft Windows 8.1 R1" accuracy="90" line="77733">
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="8.1" accuracy="90"><cpe>cpe:/o:microsoft:windows_8.1:r1</cpe></osclass>
+</osmatch>
+<osmatch name="Microsoft Windows Phone 7.5 or 8.0" accuracy="90" line="78869">
+<osclass type="phone" vendor="Microsoft" osfamily="Windows" osgen="Phone" accuracy="90"><cpe>cpe:/o:microsoft:windows</cpe></osclass>
+</osmatch>
+<osmatch name="Microsoft Windows 7 or Windows Server 2008 R2" accuracy="89" line="73917">
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="2008" accuracy="89"><cpe>cpe:/o:microsoft:windows_server_2008:r2</cpe></osclass>
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="7" accuracy="89"><cpe>cpe:/o:microsoft:windows_7</cpe></osclass>
+</osmatch>
+<osmatch name="Microsoft Windows Server 2008 or 2008 Beta 3" accuracy="89" line="74063">
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="2008" accuracy="89"><cpe>cpe:/o:microsoft:windows_server_2008::beta3</cpe><cpe>cpe:/o:microsoft:windows_server_2008</cpe></osclass>
+</osmatch>
+<osmatch name="Microsoft Windows Server 2008 R2 or Windows 8.1" accuracy="89" line="74462">
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="2008" accuracy="89"><cpe>cpe:/o:microsoft:windows_server_2008:r2</cpe></osclass>
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="8.1" accuracy="89"><cpe>cpe:/o:microsoft:windows_8.1</cpe></osclass>
+</osmatch>
+</os>
+<uptime seconds="1328" lastboot="Sun Oct 18 19:10:24 2020"/>
+<tcpsequence index="261" difficulty="Good luck!" values="6576CE43,419B455,F25730CA,6E465B88,24654E7E,C86FC85D"/>
+<ipidsequence class="Incremental" values="5D3,5D4,5D5,5D6,5D7,5D8"/>
+<tcptssequence class="100HZ" values="1E191,1E19C,1E1A6,1E1B0,1E1B9,1E1C3"/>
+<times srtt="231155" rttvar="13999" to="287151"/>
+</host>
+<taskbegin task="NSE" time="1603020752"/>
+<taskend task="NSE" time="1603020752"/>
+<taskbegin task="NSE" time="1603020752"/>
+<taskend task="NSE" time="1603020752"/>
+<taskbegin task="NSE" time="1603020752"/>
+<taskend task="NSE" time="1603020752"/>
+<runstats><finished time="1603020752" timestr="Sun Oct 18 19:32:32 2020" elapsed="622.07" summary="Nmap done at Sun Oct 18 19:32:32 2020; 1 IP address (1 host up) scanned in 622.07 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

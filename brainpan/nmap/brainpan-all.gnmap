@@ -1,0 +1,2 @@
+# Nmap 7.80 scan initiated Sun Oct 18 21:48:48 2020 as: nmap -p- -sC -oA nmap/brainpan-all -v 10.10.195.236
+# Ports scanned: TCP(65535;1-65535) UDP(0;) SCTP(0;) PROTOCOLS(0;)

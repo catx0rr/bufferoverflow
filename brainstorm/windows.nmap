@@ -1,0 +1,76 @@
+# Nmap 7.80 scan initiated Sun Oct 18 20:07:06 2020 as: nmap -sC -sV -T4 -oN windows -v -Pn 172.16.10.101
+Nmap scan report for 172.16.10.101
+Host is up (0.0029s latency).
+Not shown: 997 filtered ports
+PORT     STATE SERVICE       VERSION
+3389/tcp open  ms-wbt-server Microsoft Terminal Services
+| rdp-ntlm-info: 
+|   Target_Name: DESKTOP-12RCD2T
+|   NetBIOS_Domain_Name: DESKTOP-12RCD2T
+|   NetBIOS_Computer_Name: DESKTOP-12RCD2T
+|   DNS_Domain_Name: DESKTOP-12RCD2T
+|   DNS_Computer_Name: DESKTOP-12RCD2T
+|   Product_Version: 10.0.18362
+|_  System_Time: 2020-10-18T12:09:47+00:00
+| ssl-cert: Subject: commonName=DESKTOP-12RCD2T
+| Issuer: commonName=DESKTOP-12RCD2T
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2020-09-16T17:04:18
+| Not valid after:  2021-03-18T17:04:18
+| MD5:   d16a 9b6d e874 248c a3e3 80c3 49ff 0b96
+|_SHA-1: 15cd 03d1 ea41 0c28 a5fe 819d d831 ef4a 2b47 bed9
+|_ssl-date: 2020-10-18T12:10:01+00:00; -1s from scanner time.
+5357/tcp open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Service Unavailable
+9999/tcp open  abyss?
+| fingerprint-strings: 
+|   DNSStatusRequestTCP, DNSVersionBindReqTCP, FourOhFourRequest, GenericLines, GetRequest, HTTPOptions, Help, JavaRMI, RPCCheck, RTSPRequest, SSLSessionReq, TerminalServerCookie: 
+|     Welcome to Brainstorm chat (beta)
+|     Please enter your username (max 20 characters): Write a message:
+|   NULL: 
+|     Welcome to Brainstorm chat (beta)
+|_    Please enter your username (max 20 characters):
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port9999-TCP:V=7.80%I=7%D=10/18%Time=5F8C2FF5%P=x86_64-pc-linux-gnu%r(N
+SF:ULL,52,"Welcome\x20to\x20Brainstorm\x20chat\x20\(beta\)\nPlease\x20ente
+SF:r\x20your\x20username\x20\(max\x2020\x20characters\):\x20")%r(GetReques
+SF:t,63,"Welcome\x20to\x20Brainstorm\x20chat\x20\(beta\)\nPlease\x20enter\
+SF:x20your\x20username\x20\(max\x2020\x20characters\):\x20Write\x20a\x20me
+SF:ssage:\x20")%r(HTTPOptions,63,"Welcome\x20to\x20Brainstorm\x20chat\x20\
+SF:(beta\)\nPlease\x20enter\x20your\x20username\x20\(max\x2020\x20characte
+SF:rs\):\x20Write\x20a\x20message:\x20")%r(FourOhFourRequest,63,"Welcome\x
+SF:20to\x20Brainstorm\x20chat\x20\(beta\)\nPlease\x20enter\x20your\x20user
+SF:name\x20\(max\x2020\x20characters\):\x20Write\x20a\x20message:\x20")%r(
+SF:JavaRMI,63,"Welcome\x20to\x20Brainstorm\x20chat\x20\(beta\)\nPlease\x20
+SF:enter\x20your\x20username\x20\(max\x2020\x20characters\):\x20Write\x20a
+SF:\x20message:\x20")%r(GenericLines,63,"Welcome\x20to\x20Brainstorm\x20ch
+SF:at\x20\(beta\)\nPlease\x20enter\x20your\x20username\x20\(max\x2020\x20c
+SF:haracters\):\x20Write\x20a\x20message:\x20")%r(RTSPRequest,63,"Welcome\
+SF:x20to\x20Brainstorm\x20chat\x20\(beta\)\nPlease\x20enter\x20your\x20use
+SF:rname\x20\(max\x2020\x20characters\):\x20Write\x20a\x20message:\x20")%r
+SF:(RPCCheck,63,"Welcome\x20to\x20Brainstorm\x20chat\x20\(beta\)\nPlease\x
+SF:20enter\x20your\x20username\x20\(max\x2020\x20characters\):\x20Write\x2
+SF:0a\x20message:\x20")%r(DNSVersionBindReqTCP,63,"Welcome\x20to\x20Brains
+SF:torm\x20chat\x20\(beta\)\nPlease\x20enter\x20your\x20username\x20\(max\
+SF:x2020\x20characters\):\x20Write\x20a\x20message:\x20")%r(DNSStatusReque
+SF:stTCP,63,"Welcome\x20to\x20Brainstorm\x20chat\x20\(beta\)\nPlease\x20en
+SF:ter\x20your\x20username\x20\(max\x2020\x20characters\):\x20Write\x20a\x
+SF:20message:\x20")%r(Help,63,"Welcome\x20to\x20Brainstorm\x20chat\x20\(be
+SF:ta\)\nPlease\x20enter\x20your\x20username\x20\(max\x2020\x20characters\
+SF:):\x20Write\x20a\x20message:\x20")%r(SSLSessionReq,63,"Welcome\x20to\x2
+SF:0Brainstorm\x20chat\x20\(beta\)\nPlease\x20enter\x20your\x20username\x2
+SF:0\(max\x2020\x20characters\):\x20Write\x20a\x20message:\x20")%r(Termina
+SF:lServerCookie,63,"Welcome\x20to\x20Brainstorm\x20chat\x20\(beta\)\nPlea
+SF:se\x20enter\x20your\x20username\x20\(max\x2020\x20characters\):\x20Writ
+SF:e\x20a\x20message:\x20");
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: mean: -1s, deviation: 0s, median: -1s
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sun Oct 18 20:10:03 2020 -- 1 IP address (1 host up) scanned in 176.16 seconds

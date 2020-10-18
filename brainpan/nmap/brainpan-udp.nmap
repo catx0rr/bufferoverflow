@@ -1,0 +1,7 @@
+# Nmap 7.80 scan initiated Sun Oct 18 21:50:29 2020 as: nmap -Pn -sU -oA nmap/brainpan-udp -v 0.10.195.236
+Nmap scan report for 0.10.195.236
+Host is up.
+All 1000 scanned ports on 0.10.195.236 are open|filtered
+
+Read data files from: /usr/bin/../share/nmap
+# Nmap done at Sun Oct 18 21:53:51 2020 -- 1 IP address (1 host up) scanned in 202.45 seconds

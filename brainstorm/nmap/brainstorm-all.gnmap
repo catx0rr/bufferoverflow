@@ -1,0 +1,5 @@
+# Nmap 7.80 scan initiated Sun Oct 18 19:22:10 2020 as: nmap -sC -sV -T4 -O -oA nmap/brainstorm-all -v -p- -Pn 10.10.2.63
+# Ports scanned: TCP(65535;1-65535) UDP(0;) SCTP(0;) PROTOCOLS(0;)
+Host: 10.10.2.63 ()	Status: Up
+Host: 10.10.2.63 ()	Ports: 21/open/tcp//ftp//Microsoft ftpd/, 3389/open/tcp//ssl|ms-wbt-server?///, 9999/open/tcp//abyss?///	Ignored State: filtered (65532)	Seq Index: 261	IP ID Seq: Incremental
+# Nmap done at Sun Oct 18 19:32:32 2020 -- 1 IP address (1 host up) scanned in 622.07 seconds
